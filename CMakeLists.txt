@@ -5,9 +5,20 @@ set(CMAKE_CXX_STANDARD 20)
 
 add_executable(main
 src/main.cpp
-src/Data_structures/data_structures.cpp
-src/Data_structures/data_structures.hpp
-src/Sequences/sequences.hpp
-src/Sequences/sequences.cpp
-src/Menus/menus.hpp
-src/Menus/menus.cpp) 
+src/smart_sequences/data_structures/SmartPtrLinkedList/SmartPtrLinkedList.tpp
+src/smart_sequences/data_structures/SmartPtrDynamicArray/SmartPtrDynamicArray.hpp
+src/smart_sequences/data_structures/SmartPtrDynamicArray/SmartPtrDynamicArray.tpp
+src/smart_sequences/data_structures/SmartPtrLinkedList/SmartPtrLinkedList.hpp
+src/smart_sequences/smart_pointers/ControlBlock/ControlBlock.hpp
+src/smart_sequences/smart_pointers/ControlBlock/ControlBlock.tpp
+src/smart_sequences/smart_pointers/SharedPtr/SharedPtr.hpp
+src/smart_sequences/smart_pointers/SharedPtr/SharedPtr.tpp
+src/smart_sequences/smart_pointers/UniquePtr/UniquePtr.hpp
+src/smart_sequences/smart_pointers/UniquePtr/UniquePtr.tpp
+src/smart_sequences/smart_pointers/WeakPtr/WeakPtr.hpp
+src/smart_sequences/smart_pointers/WeakPtr/WeakPtr.tpp
+src/smart_sequences/sequences/SmartPtrArraySequence/SmartPtrArraySequence.hpp
+src/smart_sequences/sequences/SmartPtrArraySequence/SmartPtrArraySequence.tpp
+src/smart_sequences/sequences/SmartPtrSequence.hpp
+src/smart_sequences/sequences/SmartPtrLinkedListSequence/SmartPtrLinkedListSequence.hpp
+src/smart_sequences/sequences/SmartPtrLinkedListSequence/SmartPtrLinkedListSequence.tpp) 

@@ -1,79 +1,95 @@
+#include <cstdlib>
+#include <ctime>
 #include <iostream>
 
-#include "Menus/menus.hpp"
-#include "Sequences/sequences.hpp"
-
-using namespace std;
+#include "smart_sequences/sequences/SmartPtrArraySequence/SmartPtrArraySequence.hpp"
+#include "smart_sequences/sequences/SmartPtrLinkedListSequence/SmartPtrLinkedListSequence.hpp"
 
 int main() {
-    ArraySequence<int> array_seq;
-    LinkedListSequence<int> linked_list_seq;
+    char choice;
+    int length;
+
+    // Choose the sequence type
+    std::cout << "Choose sequence type (A: Array, L: Linked List): ";
+    std::cin >> choice;
+
+    SmartPtrSequence<int>* sequence;
+
+    if (choice == 'A' || choice == 'a') {
+        std::cout << "Enter the length of the array sequence: ";
+        std::cin >> length;
+        sequence = new SmartPtrArraySequence<int>();
+    } else if (choice == 'L' || choice == 'l') {
+        std::cout << "Enter the length of the linked list sequence: ";
+        std::cin >> length;
+        sequence = new SmartPtrLinkedListSequence<int>();
+    } else {
+        std::cerr << "Invalid choice. Exiting..." << std::endl;
+        return 1;
+    }
+
+    int value, index;
+    UniquePtr<SmartPtrSequence<int>> subsequence;
 
     while (true) {
-        cout << array_seq.to_string() << endl;
-        cout << linked_list_seq.to_string() << endl;
+        // Display menu
+        std::cout << "\nMenu:\n";
+        std::cout << "1. Print sequence\n";
+        std::cout << "2. Append\n";
+        std::cout << "3. Prepend\n";
+        std::cout << "4. Insert\n";
+        std::cout << "5. Remove\n";
+        std::cout << "6. Get subsequence\n";
+        std::cout << "7. Clear\n";
+        std::cout << "0. Exit\n";
+        std::cout << "Enter your choice: ";
+        std::cin >> choice;
 
-        actions action = get_action();
-
-        Sequence<int>* seq;
-        if (action != EXIT) seq = select_seq(&array_seq, &linked_list_seq);
-
-        switch (action) {
-            case INPUT: {
-                input_menu(seq);
+        switch (choice) {
+            case '1':
+                std::cout << sequence->to_string() << std::endl;
                 break;
-            }
-            case GET_FIRST: {
-                get_first_menu(seq);
+            case '2':
+                std::cout << "Enter value to append: ";
+                std::cin >> value;
+                sequence->append(value);
                 break;
-            }
-            case GET_LAST: {
-                get_last_menu(seq);
+            case '3':
+                std::cout << "Enter value to prepend: ";
+                std::cin >> value;
+                sequence->prepend(value);
                 break;
-            }
-            case GET: {
-                get_menu(seq);
+            case '4':
+                std::cout << "Enter index to insert: ";
+                std::cin >> index;
+                std::cout << "Enter value to insert: ";
+                std::cin >> value;
+                sequence->insert(index, value);
                 break;
-            }
-            case GET_SUB: {
-                get_sub_menu(seq);
+            case '5':
+                std::cout << "Enter index to remove: ";
+                std::cin >> index;
+                sequence->remove(index);
                 break;
-            }
-            case GET_LEN: {
-                get_len_menu(seq);
+            case '6':
+                int start, end;
+                std::cout << "Enter start index: ";
+                std::cin >> start;
+                std::cout << "Enter end index: ";
+                std::cin >> end;
+                subsequence = UniquePtr<SmartPtrSequence<int>>(sequence->get_subsequence(start, end).release());
+                std::cout << "Subsequence: " << subsequence->to_string() << std::endl;
                 break;
-            }
-            case SET: {
-                set_menu(seq);
+            case '7':
+                sequence->clear();
+                std::cout << "Sequence cleared.\n";
                 break;
-            }
-            case APPEND: {
-                append_menu(seq);
-                break;
-            }
-            case PREPEND: {
-                prepend_menu(seq);
-                break;
-            }
-            case INSERT: {
-                insert_menu(seq);
-                break;
-            }
-            case CONCAT: {
-                concat_menu(seq);
-                break;
-            }
-            case CLEAR: {
-                clear_menu(seq);
-                break;
-            }
-            case REMOVE: {
-                remove_menu(seq);
-                break;
-            }
-            case EXIT: {
+            case '0':
+                delete sequence;
+                std::cout << "Exiting...\n";
                 return 0;
-            }
+            default:
+                std::cerr << "Invalid choice. Try again.\n";
         }
     }
 
