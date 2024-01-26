@@ -3,6 +3,7 @@
 #include <cstddef>
 
 #include "../ControlBlock/ControlBlock.hpp"
+namespace zatsep {
 template <class T>
 class SharedPtr;
 
@@ -68,3 +69,5 @@ class WeakPtr<T[]> {  // specialization for arrays
 
     friend void swap(WeakPtr<T[]> &lhs, WeakPtr<T[]> &rhs) noexcept { lhs.swap(rhs); }
 };
+}  // namespace zatsep
+#include "WeakPtr.tpp"

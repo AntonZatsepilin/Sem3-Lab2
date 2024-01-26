@@ -1,7 +1,7 @@
 #pragma once
 
 #include <utility>
-
+namespace zatsep {
 template <class T>
 class UniquePtr {
    private:
@@ -82,5 +82,5 @@ typename std::enable_if<!std::is_array<T>::value, UniquePtr<T>>::type make_uniqu
 template <class T>
 typename std::enable_if<std::is_array<T>::value, UniquePtr<T>>::type make_unique(
     std::size_t size);  // make_unique for array types
-
+}  // namespace zatsep
 #include "UniquePtr.tpp"

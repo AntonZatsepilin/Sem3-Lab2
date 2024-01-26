@@ -1,8 +1,10 @@
 #pragma once
 
+#include <stdexcept>
+
 #include "../../data_structures/SmartPtrDynamicArray/SmartPtrDynamicArray.hpp"
 #include "../SmartPtrSequence.hpp"
-
+namespace zatsep {
 template <class T>
 class SmartPtrArraySequence : public SmartPtrSequence<T> {
     UniquePtr<SmartPtrDynamicArray<T>> array;
@@ -28,3 +30,5 @@ class SmartPtrArraySequence : public SmartPtrSequence<T> {
 
     T &operator[](int index) override;
 };
+}  // namespace zatsep
+#include "SmartPtrArraySequence.tpp"

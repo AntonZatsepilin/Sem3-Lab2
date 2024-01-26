@@ -1,5 +1,5 @@
 #include "SmartPtrDynamicArray.hpp"
-
+namespace zatsep {
 template <class T>
 inline SmartPtrDynamicArray<T>::SmartPtrDynamicArray() {
     length_ = 0;
@@ -8,14 +8,14 @@ inline SmartPtrDynamicArray<T>::SmartPtrDynamicArray() {
 
 template <class T>
 inline SmartPtrDynamicArray<T>::SmartPtrDynamicArray(int length) {
-    if (length < 0) throw std::invalid_argument();
+    if (length < 0) throw std::invalid_argument("length must be positive");
     length_ = length;
     data_ = make_shared<T[]>(length);
 }
 
 template <class T>
 inline SmartPtrDynamicArray<T>::SmartPtrDynamicArray(SharedPtr<T[]> data, int length) {
-    if (length < 0) throw std::invalid_argument();
+    if (length < 0) throw std::invalid_argument("length must be positive");
 
     length_ = length;
     data_ = make_shared<T[]>(length_);
@@ -31,7 +31,7 @@ inline SmartPtrDynamicArray<T>::SmartPtrDynamicArray(const SmartPtrDynamicArray<
 
 template <class T>
 inline T SmartPtrDynamicArray<T>::get(int index) const {
-    if (index < 0 || index >= length_) throw std::invalid_argument();
+    if (index < 0 || index >= length_) throw std::invalid_argument("index out of range");
     return data_[index];
 }
 
@@ -42,13 +42,13 @@ inline std::size_t SmartPtrDynamicArray<T>::get_length() const noexcept {
 
 template <class T>
 inline void SmartPtrDynamicArray<T>::set(int index, T value) {
-    if (index < 0 || index >= length_) throw std::invalid_argument();
+    if (index < 0 || index >= length_) throw std::invalid_argument("index out of range");
     data_[index] = value;
 }
 
 template <class T>
 inline void SmartPtrDynamicArray<T>::resize(int new_length) {
-    if (new_length < 0) throw InvalidArgumentException("length must be positive");
+    if (new_length < 0) throw std::invalid_argument("length must be positive");
     if (new_length == (int)length_) return;
 
     SharedPtr<T[]> new_data = make_shared<T[]>(new_length);
@@ -60,7 +60,8 @@ inline void SmartPtrDynamicArray<T>::resize(int new_length) {
 
 template <class T>
 inline T &SmartPtrDynamicArray<T>::operator[](int index) {
-    if (index < 0 || index >= length_) throw IndexOutOfRangeException(index, 0, length_ - 1);
+    if (index < 0 || index >= length_) throw std::invalid_argument("lindex, 0, length_ - 1");
 
     return data_[index];
 }
+}  // namespace zatsep

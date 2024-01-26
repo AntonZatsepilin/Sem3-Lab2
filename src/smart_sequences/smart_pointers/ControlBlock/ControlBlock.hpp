@@ -1,4 +1,5 @@
 #pragma once
+namespace zatsep {
 template <class T>
 class ControlBlock {
    private:
@@ -38,3 +39,5 @@ class ControlBlock<T[]> {  // specialization for arrays
     [[nodiscard]] unsigned int get_reference_counter() const noexcept;
     [[nodiscard]] unsigned int get_weak_ptr_reference_counter() const noexcept;
 };
+}  // namespace zatsep
+#include "ControlBlock.tpp"

@@ -1,5 +1,5 @@
 #include "SmartPtrLinkedList.hpp"
-
+namespace zatsep {
 template <class T>
 inline SmartPtrLinkedList<T>::SmartPtrLinkedList() {
     init_();
@@ -7,7 +7,7 @@ inline SmartPtrLinkedList<T>::SmartPtrLinkedList() {
 
 template <class T>
 inline SmartPtrLinkedList<T>::SmartPtrLinkedList(SharedPtr<T[]> data, int length) {
-    if (length < 0) throw std::invalid_argument();
+    if (length < 0) throw std::invalid_argument("length must be positive");
 
     init_();
     for (std::size_t i = 0; i < length; ++i) append(data[i]);
@@ -21,19 +21,19 @@ inline SmartPtrLinkedList<T>::SmartPtrLinkedList(const SmartPtrLinkedList<T> &ot
 
 template <class T>
 inline T SmartPtrLinkedList<T>::get(int index) const {
-    if (index < 0 || index >= length_) throw std::invalid_argument();
+    if (index < 0 || index >= length_) throw std::invalid_argument("index out of range");
     return get_node_(index)->data;
 }
 
 template <class T>
 inline T SmartPtrLinkedList<T>::get_first() const {
-    if (length_ == 0) throw std::invalid_argument();
+    if (length_ == 0) throw std::invalid_argument("list is empty");
     return root_->head->data;
 }
 
 template <class T>
 inline T SmartPtrLinkedList<T>::get_last() const {
-    if (length_ == 0) throw std::invalid_argument();
+    if (length_ == 0) throw std::invalid_argument("list is empty");
     return root_->tail->data;
 }
 
@@ -44,7 +44,7 @@ inline std::size_t SmartPtrLinkedList<T>::get_length() const noexcept {
 
 template <class T>
 inline void SmartPtrLinkedList<T>::set(int index, T value) {
-    if (index < 0 || index >= length_) throw std::invalid_argument();
+    if (index < 0 || index >= length_) throw std::invalid_argument("index out of range");
     get_node_(index)->data = value;
 }
 
@@ -82,7 +82,7 @@ inline void SmartPtrLinkedList<T>::prepend(T value) noexcept {
 
 template <class T>
 inline void SmartPtrLinkedList<T>::insert(int index, T value) {
-    if (index < 0 || index > length_) throw std::invalid_argument();
+    if (index < 0 || index > length_) throw std::invalid_argument("index out of range");
 
     if (index == 0) {
         prepend(value);
@@ -105,7 +105,7 @@ inline void SmartPtrLinkedList<T>::insert(int index, T value) {
 
 template <class T>
 inline void SmartPtrLinkedList<T>::remove(int index) {
-    if (index < 0 || index >= length_) throw std::invalid_argument();
+    if (index < 0 || index >= length_) throw std::invalid_argument("index out of range");
     if (index == 0) {
         auto new_head = root_->head->next;
         root_->head = new_head;
@@ -135,9 +135,9 @@ inline void SmartPtrLinkedList<T>::clear() noexcept {
 
 template <class T>
 inline SmartPtrLinkedList<T> SmartPtrLinkedList<T>::get_sublist(int start_index, int end_index) const {
-    if (start_index < 0 || start_index >= length_) throw std::invalid_argument();
-    if (end_index < 0 || end_index >= length_) throw std::invalid_argument();
-    if (start_index > end_index) throw std::invalid_argument();
+    if (start_index < 0 || start_index >= length_) throw std::invalid_argument("start index out of range");
+    if (end_index < 0 || end_index >= length_) throw std::invalid_argument("end index out of range");
+    if (start_index > end_index) throw std::invalid_argument("invalid indexes");
 
     auto new_list = SmartPtrLinkedList<T>();
     for (std::size_t i = start_index; i <= end_index; ++i) new_list.append(get(i));
@@ -153,7 +153,7 @@ inline SmartPtrLinkedList<T> SmartPtrLinkedList<T>::concat(const SmartPtrLinkedL
 
 template <class T>
 inline T &SmartPtrLinkedList<T>::operator[](int index) {
-    if (index < 0 || index >= length_) throw std::invalid_argument();
+    if (index < 0 || index >= length_) throw std::invalid_argument("index out of range");
     return get_node_(index)->data;
 }
 
@@ -167,7 +167,7 @@ inline void SmartPtrLinkedList<T>::init_() {
 
 template <class T>
 inline SharedPtr<typename SmartPtrLinkedList<T>::Node> SmartPtrLinkedList<T>::get_node_(int index) const {
-    if (index < 0 || index >= length_) throw std::invalid_argument();
+    if (index < 0 || index >= length_) throw std::invalid_argument("index out of range");
 
     if (index < length_ / 2) {  // search from head
         auto cur_node = root_->head;
@@ -179,3 +179,4 @@ inline SharedPtr<typename SmartPtrLinkedList<T>::Node> SmartPtrLinkedList<T>::ge
         return cur_node;
     }
 }
+}  // namespace zatsep

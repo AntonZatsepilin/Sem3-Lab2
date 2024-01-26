@@ -1,5 +1,5 @@
 #include "SmartPtrLinkedListSequence.hpp"
-
+namespace zatsep {
 template <class T>
 inline SmartPtrLinkedListSequence<T>::SmartPtrLinkedListSequence(SharedPtr<T[]> items, int count) {
     list = make_unique<SmartPtrLinkedList<T>>(items, count);
@@ -85,3 +85,4 @@ template <class T>
 T &SmartPtrLinkedListSequence<T>::operator[](int index) {
     return list->operator[](index);
 };
+}  // namespace zatsep

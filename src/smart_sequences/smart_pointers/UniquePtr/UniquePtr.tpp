@@ -1,5 +1,5 @@
 #include "UniquePtr.hpp"
-
+namespace zatsep {
 template <class T, class... Args>
 typename std::enable_if<!std::is_array<T>::value, UniquePtr<T>>::type make_unique(
     Args &&...args) {  // make_unique for non-array types
@@ -134,3 +134,4 @@ template <class T>
 inline T &UniquePtr<T[]>::operator[](std::size_t index) const {
     return ptr_[index];
 }
+}  // namespace zatsep

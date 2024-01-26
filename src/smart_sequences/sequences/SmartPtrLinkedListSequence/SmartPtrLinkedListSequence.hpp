@@ -2,7 +2,7 @@
 
 #include "../../data_structures/SmartPtrLinkedList/SmartPtrLinkedList.hpp"
 #include "../SmartPtrSequence.hpp"
-
+namespace zatsep {
 template <class T>
 class SmartPtrLinkedListSequence : public SmartPtrSequence<T> {
     UniquePtr<SmartPtrLinkedList<T>> list;
@@ -28,3 +28,5 @@ class SmartPtrLinkedListSequence : public SmartPtrSequence<T> {
 
     T &operator[](int index) override;
 };
+}  // namespace zatsep
+#include "SmartPtrLinkedListSequence.tpp"

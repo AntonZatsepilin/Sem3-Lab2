@@ -1,4 +1,5 @@
 #include "WeakPtr.hpp"
+namespace zatsep {
 using namespace std;
 template <class T>
 inline void WeakPtr<T>::update_reference(ControlBlock<T> *new_control_block) {
@@ -175,3 +176,4 @@ template <class T>
 inline SharedPtr<T[]> WeakPtr<T[]>::lock() const noexcept {
     return expired() ? SharedPtr<T[]>() : SharedPtr<T[]>(*this);
 }
+}  // namespace zatsep

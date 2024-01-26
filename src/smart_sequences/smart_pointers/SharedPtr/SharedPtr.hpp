@@ -4,7 +4,7 @@
 
 #include "../ControlBlock/ControlBlock.hpp"
 #include "../WeakPtr/WeakPtr.hpp"
-
+namespace zatsep {
 template <class T>
 class SharedPtr {
    private:
@@ -93,3 +93,5 @@ typename std::enable_if<!std::is_array<T>::value, SharedPtr<T>>::type make_share
 template <class T>
 typename std::enable_if<std::is_array<T>::value, SharedPtr<T>>::type make_shared(
     std::size_t size);  // make_shared for array types
+}  // namespace zatsep
+#include "SharedPtr.tpp"

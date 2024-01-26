@@ -3,7 +3,7 @@
 #include <algorithm>
 
 #include "../../smart_pointers/SharedPtr/SharedPtr.hpp"
-
+namespace zatsep {
 template <class T>
 class SmartPtrDynamicArray {
    private:
@@ -33,3 +33,5 @@ class SmartPtrDynamicArray {
         return *this;
     }
 };
+}  // namespace zatsep
+#include "SmartPtrDynamicArray.tpp"

@@ -1,5 +1,5 @@
 #include "SharedPtr.hpp"
-
+namespace zatsep {
 template <class T, class... Args>
 typename std::enable_if<!std::is_array<T>::value, SharedPtr<T>>::type make_shared(
     Args &&...args) {  // make_shared for non-array types
@@ -58,14 +58,14 @@ inline SharedPtr<T[]>::SharedPtr(const SharedPtr &other) noexcept
 
 template <class T>
 inline SharedPtr<T>::SharedPtr(const WeakPtr<T> &other) {  // constructor from WeakPtr
-    if (other.expired()) throw std::invalid_argument();
+    if (other.expired()) throw std::invalid_argument("other is expired");
     control_block_ = other.control_block_;
     if (control_block_ && control_block_->get() != nullptr) control_block_->increment_reference_counter();
 }
 
 template <class T>
 inline SharedPtr<T[]>::SharedPtr(const WeakPtr<T[]> &other) {  // constructor from WeakPtr for arrays
-    if (other.expired()) throw std::invalid_argument();
+    if (other.expired()) throw std::invalid_argument("other is expired");
     control_block_ = other.control_block_;
     if (control_block_ && control_block_->get() != nullptr) control_block_->increment_reference_counter();
 }
@@ -223,3 +223,4 @@ inline unsigned int SharedPtr<T[]>::use_count() const noexcept {
     if (control_block_ == nullptr) return 0;
     return control_block_->get_reference_counter();
 }
+}  // namespace zatsep

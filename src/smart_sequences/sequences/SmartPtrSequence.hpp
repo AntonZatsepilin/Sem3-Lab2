@@ -5,7 +5,7 @@
 
 #include "../smart_pointers/SharedPtr/SharedPtr.hpp"
 #include "../smart_pointers/UniquePtr/UniquePtr.hpp"
-
+namespace zatsep {
 template <class T>
 class SmartPtrSequence {
    public:
@@ -49,3 +49,4 @@ std::string SmartPtrSequence<T>::to_string() const {
 
     return oss.str();
 }
+}  // namespace zatsep

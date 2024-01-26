@@ -1,5 +1,5 @@
 #include "SmartPtrArraySequence.hpp"
-
+namespace zatsep {
 template <class T>
 inline SmartPtrArraySequence<T>::SmartPtrArraySequence(SharedPtr<T[]> items, int count) {
     array = make_unique<SmartPtrDynamicArray<T>>(items, count);
@@ -32,9 +32,9 @@ T SmartPtrArraySequence<T>::get(int index) const {
 
 template <class T>
 UniquePtr<SmartPtrSequence<T>> SmartPtrArraySequence<T>::get_subsequence(int start_index, int end_index) const {
-    if (start_index < 0 || start_index >= get_length()) throw std::invalid_argument();
-    if (end_index < 0 || end_index >= get_length()) throw std::invalid_argument();
-    if (end_index < start_index) throw std::invalid_argument();
+    if (start_index < 0 || start_index >= get_length()) throw std::invalid_argument("start index out of range");
+    if (end_index < 0 || end_index >= get_length()) throw std::invalid_argument("end index out of range");
+    if (end_index < start_index) throw std::invalid_argument("end < start");
 
     auto sub_seq = UniquePtr<SmartPtrSequence<T>>(new SmartPtrArraySequence<T>());
     for (int i = start_index; i <= end_index; ++i) sub_seq->append(get(i));
@@ -66,7 +66,7 @@ void SmartPtrArraySequence<T>::prepend(T item) {
 
 template <class T>
 void SmartPtrArraySequence<T>::insert(int index, T item) {
-    if (index < 0 || index > get_length()) throw std::invalid_argument();
+    if (index < 0 || index > get_length()) throw std::invalid_argument("index out of range");
 
     if (index == 0)
         prepend(item);
@@ -93,7 +93,7 @@ void SmartPtrArraySequence<T>::clear() {
 
 template <class T>
 void SmartPtrArraySequence<T>::remove(int index) {
-    if (index < 0 || index >= get_length()) throw std::invalid_argument();
+    if (index < 0 || index >= get_length()) throw std::invalid_argument("index out of range");
 
     for (int i = index; i < get_length() - 1; ++i) set(i, get(i + 1));
     array->resize(get_length() - 1);
@@ -103,3 +103,4 @@ template <class T>
 T &SmartPtrArraySequence<T>::operator[](int index) {
     return array->operator[](index);
 }
+}  // namespace zatsep

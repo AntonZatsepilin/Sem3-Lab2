@@ -2,7 +2,7 @@
 
 #include "../../smart_pointers/SharedPtr/SharedPtr.hpp"
 #include "../../smart_pointers/WeakPtr/WeakPtr.hpp"
-
+namespace zatsep {
 template <class T>
 class SmartPtrLinkedList {
    private:
@@ -55,3 +55,5 @@ class SmartPtrLinkedList {
     void init_();
     SharedPtr<Node> get_node_(int index) const;
 };
+}  // namespace zatsep
+#include "SmartPtrLinkedList.tpp"
