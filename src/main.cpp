@@ -23,7 +23,7 @@ void bubbleSort(SmartPtrSequence<T>& sequence) {
             }
         }
     }
-    auto stop = high_resolution_clock::now();  // Замер времени завершения сортировки
+    auto stop = high_resolution_clock::now();
     auto duration = duration_cast<milliseconds>(stop - start);
     std::cout << "Время выполнения сортировки: " << duration.count() << " мс.\n";
 }
@@ -43,7 +43,7 @@ void selectionSort(SmartPtrSequence<T>& sequence) {
         sequence.set(i, sequence.get(minIndex));
         sequence.set(minIndex, temp);
     }
-    auto stop = high_resolution_clock::now();  // Замер времени завершения сортировки
+    auto stop = high_resolution_clock::now();
     auto duration = duration_cast<milliseconds>(stop - start);
     std::cout << "Время выполнения сортировки: " << duration.count() << " мс.\n";
 }

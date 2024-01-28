@@ -123,7 +123,6 @@ TEST_CASE("SmartPtrArraySequence functionality") {
             CHECK(sequence.get_last() == 7);
         }
 
-        // Trying to insert at an index that is out of range
         CHECK_THROWS(sequence.insert(6, 10));
     }
 
@@ -138,9 +137,7 @@ TEST_CASE("SmartPtrArraySequence functionality") {
             CHECK(sequence.get(1) != 5);
         }
 
-        SUBCASE("Remove at invalid index") {
-            CHECK_THROWS(sequence.remove(10));  // Adjust the index to be out of range
-        }
+        SUBCASE("Remove at invalid index") { CHECK_THROWS(sequence.remove(10)); }
     }
 
     SUBCASE("Getting subsequence") {
@@ -157,15 +154,10 @@ TEST_CASE("SmartPtrArraySequence functionality") {
             });
         }
 
-        SUBCASE("Invalid subsequence start index") {
-            CHECK_THROWS(sequence.get_subsequence(10, 2));  // Adjust the start index to be out of range
-        }
+        SUBCASE("Invalid subsequence start index") { CHECK_THROWS(sequence.get_subsequence(10, 2)); }
     }
-
-    // Добавьте дополнительные тесты по мере необходимости
 }
 
-// Тесты для SmartPtrLinkedListSequence
 TEST_CASE("SmartPtrLinkedListSequence functionality") {
     SmartPtrLinkedListSequence<int> sequence;
 
@@ -204,9 +196,7 @@ TEST_CASE("SmartPtrLinkedListSequence functionality") {
             CHECK(sequence.get(1) == 5);
         }
 
-        SUBCASE("Insert at invalid index") {
-            CHECK_THROWS(sequence.insert(10, 6));  // Adjust the index to be out of range
-        }
+        SUBCASE("Insert at invalid index") { CHECK_THROWS(sequence.insert(10, 6)); }
     }
 
     SUBCASE("Removing elements") {
@@ -220,9 +210,7 @@ TEST_CASE("SmartPtrLinkedListSequence functionality") {
             CHECK(sequence.get(1) != 5);
         }
 
-        SUBCASE("Remove at invalid index") {
-            CHECK_THROWS(sequence.remove(10));  // Adjust the index to be out of range
-        }
+        SUBCASE("Remove at invalid index") { CHECK_THROWS(sequence.remove(10)); }
     }
     SUBCASE("Getting subsequence") {
         sequence.append(1);
@@ -238,15 +226,10 @@ TEST_CASE("SmartPtrLinkedListSequence functionality") {
             });
         }
 
-        SUBCASE("Invalid subsequence start index") {
-            CHECK_THROWS(sequence.get_subsequence(10, 2));  // Adjust the start index to be out of range
-        }
+        SUBCASE("Invalid subsequence start index") { CHECK_THROWS(sequence.get_subsequence(10, 2)); }
     }
-
-    // Добавьте дополнительные тесты по мере необходимости
 }
 
-// Тесты для сортировок
 TEST_CASE("Sorting algorithms") {
     SmartPtrArraySequence<int> arraySequence;
     arraySequence.append(5);
@@ -313,6 +296,4 @@ TEST_CASE("Sorting algorithms") {
         CHECK(linkedListSequence.get(1) == 5);
         CHECK(linkedListSequence.get(2) == 8);
     }
-
-    // Добавьте дополнительные тесты
 }
